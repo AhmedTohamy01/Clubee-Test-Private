@@ -1,11 +1,14 @@
 import styled from 'styled-components'
 import { PropsType } from './PrimaryButton.interfaces'
+import Button from '@material-ui/core/Button'
 
 /*---> Components <---*/
 const PrimaryButton = ({ children, ...restProps }: PropsType) => {
   return (
     <ButtonWrapper>
-      <Button {...restProps}>{children}</Button>
+      <StyledButton {...restProps} variant='contained' color='primary'>
+        {children}
+      </StyledButton>
     </ButtonWrapper>
   )
 }
@@ -16,24 +19,15 @@ const ButtonWrapper = styled.div`
   justify-content: center;
 `
 
-const Button = styled.button`
-  width: 280px;
-  height: 90px;
-  cursor: pointer;
-  background: #ffffff;
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-  border-radius: 8px;
-  font-size: 24px;
-  line-height: 30px;
-
-  :hover {
-    border: 4px solid rgba(0, 0, 0, 0.4);
-  }
-
-  :focus {
-    border: 4px solid rgba(0, 0, 0, 0.5);
-  }
+const StyledButton = styled(Button)`
+  /* background: linear-gradient(to bottom, #2bc9ff, #1399ff 100%) !important; */
+  width: 280px !important;
+  height: 90px !important;
+  padding: 0 12px !important;
+  border-radius: 10px !important;
+  text-transform: initial !important;
+  color: white !important;
+  font-size: 24px !important;
 `
 
 export default PrimaryButton
