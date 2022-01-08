@@ -17,22 +17,41 @@ const Card = ({
         <DeleteIcon onClick={handleDeleteIconClick} data-cy='delete-icon' />
         <EditIcon onClick={handleEditIconClick} data-cy='edit-icon' />
       </HeaderWrapper>
-      <AvatarWrapper>
-        <Avatar
-          src={useRandomAvatar() || '/avatar2.jpg'}
-          alt='avatar'
-          data-cy='card-avatar'
-        />
-      </AvatarWrapper>
-      <Name data-cy='card-name'>{name}</Name>
-      <Description data-cy='card-desc'>{description}</Description>
+      <ContentWrapper>
+        <AvatarWrapper>
+          <Avatar
+            src={useRandomAvatar() || '/avatar2.jpg'}
+            alt='avatar'
+            data-cy='card-avatar'
+          />
+          <Name data-cy='card-name'>{name}</Name>
+          <Email>ahmed-tohamy@outlook.com</Email>
+        </AvatarWrapper>
+        <PostWrapper>
+          <Date>January 7, 2022</Date>
+          <PostTitle>
+            What can United States do for Ukrania in the current situation ?
+          </PostTitle>
+          <Description data-cy='card-desc'>
+            The US has said it would send reinforcements to Nato’s eastern flank
+            in response to a Russian invasion of Ukraine, as well as imposing
+            severe new economic measures, in a warning to Moscow on the eve of
+            talks between Joe Biden and Vladimir Putin. Biden will also make
+            clear to Putin on Tuesday that the US will not rule out future
+            Ukrainian membership of Nato, as the Russian leader has demanded, a
+            senior US official said. On Monday, Biden spoke to European leaders
+            in preparation for the Putin summit.
+          </Description>
+        </PostWrapper>
+      </ContentWrapper>
     </CardWrapper>
   )
 }
 
 /*---> Styles <---*/
 const CardWrapper = styled.div`
-  width: 400px;
+  /* border: 1px solid yellow; */
+  width: 100%;
   height: 336px;
   background: #ffffff;
   border-radius: 8px;
@@ -66,26 +85,59 @@ const EditIcon = styled(Edit)<{ onClick: any }>`
   margin-left: 10px;
 `
 
+const ContentWrapper = styled.div`
+  /* border: 1px solid red; */
+
+  display: flex;
+  align-items: center;
+`
+
 const AvatarWrapper = styled.div`
+  /* border: 1px solid red; */
+  min-width: 20%;
   text-align: center;
 `
 
 const Avatar = styled.img`
-  width: 168px;
-  height: 168px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   object-fit: cover;
+`
+
+const PostWrapper = styled.div`
+  /* border: 1px solid red; */
+  display: flex;
+  margin-top: 8px;
+  margin-left: 20px;
+  height: 250px;
+  flex-direction: column;
 `
 
 const Name = styled.p`
   font-size: 21px;
   line-height: 26px;
-  margin-top: 28px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: 600;
+`
+
+const Email = styled.p``
+
+const Date = styled.p``
+
+const PostTitle = styled.h2`
+  /* border: 1px solid red; */
+  margin-top: 10px;
+  margin-bottom: 20px;
 `
 
 const Description = styled.p`
-  line-height: 20px;
-  margin-top: 8px;
+  /* border: 1px solid red; */
+  line-height: 30px;
+  font-size: 20px;
+  height: 100%;
+  overflow: hidden;
 `
 
 export default Card
