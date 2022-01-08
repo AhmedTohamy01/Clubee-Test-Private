@@ -17,7 +17,6 @@ const ButtonWrapper = styled.div`
 `
 
 const Button = styled.button`
-  font-family: Source Sans Pro SemiBold;
   width: 280px;
   height: 90px;
   cursor: pointer;

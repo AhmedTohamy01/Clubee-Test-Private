@@ -78,7 +78,6 @@ const Avatar = styled.img`
 `
 
 const Name = styled.p`
-  font-family: Source Sans Pro SemiBold;
   font-size: 21px;
   line-height: 26px;
   margin-top: 28px;

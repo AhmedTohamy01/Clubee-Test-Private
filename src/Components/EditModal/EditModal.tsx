@@ -161,7 +161,6 @@ const MapBox = styled.div`
   border-radius: 8px;
   font-size: 18px;
   line-height: 23px;
-  font-family: 'Source Sans Pro SemiBold';
   display: flex;
   justify-content: center;
   align-items: center;
@@ -174,7 +173,6 @@ const FieldWrapper = styled.div`
 `
 
 const Label = styled.p`
-  font-family: 'Source Sans Pro SemiBold';
   font-size: 18px;
   line-height: 23px;
 `
