@@ -81,7 +81,7 @@ const MainPage: NextPage = () => {
         <ContentWrapper>
           <HeaderWrapper>
             <MainTitle>
-              <span data-cy='main-title'>Users list</span>{' '}
+              <span data-cy='main-title'>News list</span>{' '}
               <AddIcon
                 onClick={() => setShowAddModal(true)}
                 data-cy='add-icon'
@@ -123,7 +123,7 @@ const MainPage: NextPage = () => {
       <ContentWrapper>
         <HeaderWrapper>
           <MainTitle>
-            <span data-cy='main-title'>Users list</span>{' '}
+            <span data-cy='main-title'>News list</span>{' '}
             <AddIcon onClick={() => setShowAddModal(true)} data-cy='add-icon' />
           </MainTitle>
           <SearchBox

@@ -10,5 +10,6 @@ const MainTitle = ({ children }: PropsType) => {
 const Title = styled.h1`
   font-size: 48px;
   line-height: 60px;
+  font-weight: 400;
 `
 export default MainTitle
