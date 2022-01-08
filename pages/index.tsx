@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
-// import { useLocation, useHistory } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
 import styled from 'styled-components'
 // import Loader from 'react-loader-spinner'
@@ -17,7 +16,6 @@ import DeleteModal from '../src/Components/DeleteModal/DeleteModal'
 import AddModal from '../src/Components/AddModal/AddModal'
 import { CardType } from '../src/utils/Shared.interfaces'
 import { GET_ALL_USERS } from '../src/GraphQLQueries/GraphQLQueries'
-import { useRouter } from 'next/router'
 
 /*---> Components <---*/
 const MainPage: NextPage = () => {
@@ -27,17 +25,7 @@ const MainPage: NextPage = () => {
   const [activeCard, setActiveCard] = useState<CardType | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [filterTerm, setFilterTerm] = useState('')
-
-  //****/
-  // const search = useLocation()
-  // const urlNum = search.pathname.split('=')[1]
-  const urlNum = '6'
-
-  const [limit, setLimit] = useState(parseInt(urlNum))
-
-  //****/
-  // const history = useHistory()
-  const router = useRouter()
+  const [limit, setLimit] = useState(6)
 
   const { loading, error, data } = useQuery(GET_ALL_USERS, {
     variables: { filter: filterTerm, limit: limit },
@@ -56,7 +44,7 @@ const MainPage: NextPage = () => {
   const handleLoadMore = () => {
     setLimit(limit + 6)
     const updatedurlNum = limit + 6
-    router.push(`/limit=${updatedurlNum}`)
+    setLimit(updatedurlNum)
   }
 
   useEffect(() => {
