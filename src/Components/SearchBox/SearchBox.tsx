@@ -9,7 +9,7 @@ const SearchBox = ({ searchTerm, setSearchTerm, filterTerm }: PropsType) => {
       <Input
         data-cy='search-box'
         id='search-box'
-        placeholder='Search ...'
+        placeholder='Search by author ...'
         autoComplete='off'
         defaultValue={filterTerm}
         value={searchTerm || ''}
