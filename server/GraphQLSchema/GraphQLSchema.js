@@ -7,14 +7,15 @@ const {
   GraphQLList,
   GraphQLNonNull
 } = graphql
-const User = require('../MongoDBModels/UserDBModel')
+const Post = require('../MongoDBModels/PostDBModel')
 
-const UserType = new GraphQLObjectType({
-  name: 'User',
+const PostType = new GraphQLObjectType({
+  name: 'Post',
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
-    address: { type: GraphQLString },
+    email: { type: GraphQLString },
+    title: { type: GraphQLString },
     description: { type: GraphQLString },
     createdAt: { type: GraphQLString },
     updatedAt: { type: GraphQLString },
@@ -24,21 +25,21 @@ const UserType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
-    user: {
-      type: UserType,
+    post: {
+      type: PostType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        return User.findById(args.id)
+        return Post.findById(args.id)
       },
     },
-    users: {
-      type: new GraphQLList(UserType),
+    posts: {
+      type: new GraphQLList(PostType),
       args: { filter: { type: GraphQLString }, limit: { type: GraphQLID } },
       resolve(parent, args) {
         if (args.filter) {
-          return User.find({ name: { $regex: args.filter, $options: 'i' } }).limit(parseInt(args.limit))
+          return Post.find({ name: { $regex: args.filter, $options: 'i' } }).limit(parseInt(args.limit))
         } else {
-          return User.find({}).limit(parseInt(args.limit))
+          return Post.find({}).limit(parseInt(args.limit))
         }
       },
     }
@@ -48,43 +49,47 @@ const RootQuery = new GraphQLObjectType({
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
-    addUser: {
-      type: UserType,
+    addPost: {
+      type: PostType,
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) },
-        address: { type: new GraphQLNonNull(GraphQLString) },
+        email: { type: new GraphQLNonNull(GraphQLString) },
+        title: { type: new GraphQLNonNull(GraphQLString) },
         description: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve(parent, args) {
-        let user = new User({
+        let post = new Post({
           name: args.name,
-          address: args.address,
+          email: args.email,
+          title: args.title,
           description: args.description,
         })
-        return user.save()
+        return post.save()
       },
     },
-    updateUser: {
-      type: UserType,
+    updatePost: {
+      type: PostType,
       args: {
         id: { type: GraphQLID },
         name: { type: GraphQLString },
-        address: { type: GraphQLString },
+        email: { type: GraphQLString },
+        title: { type: GraphQLString },
         description: { type: GraphQLString },
       },
       resolve(parent, args) {
-        return User.findByIdAndUpdate(args.id, {
+        return Post.findByIdAndUpdate(args.id, {
           name: args.name,
-          address: args.address,
+          email: args.email,
+          title: args.title,
           description: args.description,
         }, { new: true })
       },
     },
-    deleteUser: {
-      type: UserType,
+    deletePost: {
+      type: PostType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        return User.findByIdAndDelete(args.id)
+        return Post.findByIdAndDelete(args.id)
       },
     },
   },
