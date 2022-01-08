@@ -57,12 +57,6 @@ const MainPage: NextPage = () => {
     return () => clearTimeout(timeoutId)
   }, [searchTerm])
 
-  useEffect(() => {
-    setTimeout(() => {
-      document.getElementById('search-box')?.focus()
-    }, 400)
-  }, [filterTerm])
-
   if (loading)
     return (
       <SpinnerWrapper>
