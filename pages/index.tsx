@@ -56,23 +56,92 @@ const MainPage: NextPage = () => {
 
   if (loading)
     return (
-      <SpinnerWrapper>
-        <CircularProgress variant='indeterminate' size={90} />
-      </SpinnerWrapper>
+      <>
+        <Head>
+          <title>News List</title>
+          <meta name='News List App' content='News from different sources' />
+          <link rel='icon' href='/favicon.ico' />
+        </Head>
+        <SpinnerWrapper>
+          <CircularProgress variant='indeterminate' size={90} />
+        </SpinnerWrapper>
+      </>
     )
 
   if (error)
     return (
-      <SpinnerWrapper>
-        <SorryImage src='/sorry.png' alt='shy girl' />I don't know how to say
-        this to you ... <br />
-        But, we couldn't contact the server to get data, please try again later
-        !
-      </SpinnerWrapper>
+      <>
+        <Head>
+          <title>News List</title>
+          <meta name='News List App' content='News from different sources' />
+          <link rel='icon' href='/favicon.ico' />
+        </Head>
+        <SpinnerWrapper>
+          <SorryImage src='/sorry.png' alt='shy girl' />I don't know how to say
+          this to you ... <br />
+          But, we couldn't contact the server to get data, please try again
+          later !
+        </SpinnerWrapper>
+      </>
     )
 
   if (data.posts.length === 0)
     return (
+      <>
+        <Head>
+          <title>News List</title>
+          <meta name='News List App' content='News from different sources' />
+          <link rel='icon' href='/favicon.ico' />
+        </Head>
+        <PageWrapper>
+          <ContentWrapper>
+            <HeaderWrapper>
+              <MainTitle>
+                <span data-cy='main-title'>News list</span>{' '}
+                <AddIcon
+                  onClick={() => setShowAddModal(true)}
+                  data-cy='add-icon'
+                />
+              </MainTitle>
+              <SearchBox
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                filterTerm={filterTerm}
+              />
+            </HeaderWrapper>
+            <CardsWrapper>
+              <NoDataWrapper>
+                <SorryImage
+                  src='/sorry.png'
+                  alt='shy girl'
+                  data-cy='no-data-image'
+                />{' '}
+                <span data-cy='no-data-title'>
+                  Sorry, We did not find any data !
+                </span>
+              </NoDataWrapper>
+            </CardsWrapper>
+            {showAddModal ? (
+              <ModalOverlay>
+                <AddModal
+                  setShowAddModal={setShowAddModal}
+                  limit={limit}
+                  filterTerm={filterTerm}
+                />
+              </ModalOverlay>
+            ) : null}
+          </ContentWrapper>
+        </PageWrapper>
+      </>
+    )
+
+  return (
+    <>
+      <Head>
+        <title>News List</title>
+        <meta name='News List App' content='News from different sources' />
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
       <PageWrapper>
         <ContentWrapper>
           <HeaderWrapper>
@@ -90,17 +159,24 @@ const MainPage: NextPage = () => {
             />
           </HeaderWrapper>
           <CardsWrapper>
-            <NoDataWrapper>
-              <SorryImage
-                src='/sorry.png'
-                alt='shy girl'
-                data-cy='no-data-image'
-              />{' '}
-              <span data-cy='no-data-title'>
-                Sorry, We did not find any data !
-              </span>
-            </NoDataWrapper>
+            {data?.posts.map((item: CardType) => (
+              <Card
+                key={item.id}
+                name={item.name}
+                email={item.email}
+                title={item.title}
+                description={item.description}
+                createdAt={item.createdAt}
+                handleEditIconClick={() => handleEditIconClick(item)}
+                handleDeleteIconClick={() => handleDeleteIconClick(item)}
+              />
+            ))}
           </CardsWrapper>
+          {limit > data.posts.length ? null : (
+            <PrimaryButton onClick={handleLoadMore} data-cy='loadmore-button'>
+              LOAD MORE
+            </PrimaryButton>
+          )}
           {showAddModal ? (
             <ModalOverlay>
               <AddModal
@@ -110,76 +186,31 @@ const MainPage: NextPage = () => {
               />
             </ModalOverlay>
           ) : null}
+          {showEditModal ? (
+            <ModalOverlay>
+              <EditModal
+                setShowEditModal={setShowEditModal}
+                activeCard={activeCard}
+                setActiveCard={setActiveCard}
+                limit={limit}
+                filterTerm={filterTerm}
+              />
+            </ModalOverlay>
+          ) : null}
+          {showDeleteModal ? (
+            <ModalOverlay>
+              <DeleteModal
+                setShowDeleteModal={setShowDeleteModal}
+                activeCard={activeCard}
+                setActiveCard={setActiveCard}
+                limit={limit}
+                filterTerm={filterTerm}
+              />
+            </ModalOverlay>
+          ) : null}
         </ContentWrapper>
       </PageWrapper>
-    )
-
-  return (
-    <PageWrapper>
-      <ContentWrapper>
-        <HeaderWrapper>
-          <MainTitle>
-            <span data-cy='main-title'>News list</span>{' '}
-            <AddIcon onClick={() => setShowAddModal(true)} data-cy='add-icon' />
-          </MainTitle>
-          <SearchBox
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            filterTerm={filterTerm}
-          />
-        </HeaderWrapper>
-        <CardsWrapper>
-          {data?.posts.map((item: CardType) => (
-            <Card
-              key={item.id}
-              name={item.name}
-              email={item.email}
-              title={item.title}
-              description={item.description}
-              createdAt={item.createdAt}
-              handleEditIconClick={() => handleEditIconClick(item)}
-              handleDeleteIconClick={() => handleDeleteIconClick(item)}
-            />
-          ))}
-        </CardsWrapper>
-        {limit > data.posts.length ? null : (
-          <PrimaryButton onClick={handleLoadMore} data-cy='loadmore-button'>
-            LOAD MORE
-          </PrimaryButton>
-        )}
-        {showAddModal ? (
-          <ModalOverlay>
-            <AddModal
-              setShowAddModal={setShowAddModal}
-              limit={limit}
-              filterTerm={filterTerm}
-            />
-          </ModalOverlay>
-        ) : null}
-        {showEditModal ? (
-          <ModalOverlay>
-            <EditModal
-              setShowEditModal={setShowEditModal}
-              activeCard={activeCard}
-              setActiveCard={setActiveCard}
-              limit={limit}
-              filterTerm={filterTerm}
-            />
-          </ModalOverlay>
-        ) : null}
-        {showDeleteModal ? (
-          <ModalOverlay>
-            <DeleteModal
-              setShowDeleteModal={setShowDeleteModal}
-              activeCard={activeCard}
-              setActiveCard={setActiveCard}
-              limit={limit}
-              filterTerm={filterTerm}
-            />
-          </ModalOverlay>
-        ) : null}
-      </ContentWrapper>
-    </PageWrapper>
+    </>
   )
 }
 
