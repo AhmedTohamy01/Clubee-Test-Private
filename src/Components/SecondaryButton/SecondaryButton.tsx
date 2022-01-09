@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import { PropsType } from './SecondaryButton.interfaces'
 import Button from '@material-ui/core/Button'
+import { PropsType } from './SecondaryButton.interfaces'
 
 /*---> Components <---*/
 const SecondaryButton = ({ children, ...restProps }: PropsType) => {
@@ -20,7 +20,6 @@ const ButtonWrapper = styled.div`
 `
 
 const StyledButton = styled(Button)`
-  /* background: linear-gradient(to bottom, #2bc9ff, #1399ff 100%) !important; */
   width: 220px !important;
   height: 70px !important;
   padding: 0 12px !important;

@@ -173,19 +173,16 @@ const ModalWrapper = styled.div`
 `
 
 const DataWrapper = styled.div`
-  /* border: 1px solid red; */
   margin-top: 64px;
   display: flex;
   justify-content: space-between;
 `
 
 const UserInfoWrapper = styled.div`
-  /* border: 1px solid red; */
   width: 35%;
 `
 
 const AvatarWrapper = styled.div`
-  /* border: 1px solid red; */
   min-width: 20%;
   text-align: center;
   margin-bottom: 30px;
@@ -199,7 +196,6 @@ const Avatar = styled.img`
 `
 
 const PostInfoWrapper = styled.div`
-  /* border: 1px solid red; */
   width: 60%;
   display: flex;
   flex-direction: column;
@@ -221,7 +217,6 @@ const StyledInputMultiline = styled(TextField)`
 `
 
 const ButtonsWrapper = styled.div`
-  /* border: 1px solid yellow; */
   display: flex;
   justify-content: flex-end;
   align-items: center;

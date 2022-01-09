@@ -1,9 +1,9 @@
 import styled from 'styled-components'
+import moment from 'moment'
 import { Trash } from '@styled-icons/ionicons-outline'
 import { Edit } from '@styled-icons/boxicons-solid'
 import { useRandomAvatar } from '../../CustomHooks/useRandomAvatar'
 import { PropsType } from './Card.interfaces'
-import moment from 'moment'
 
 /*---> Components <---*/
 const Card = ({
@@ -79,14 +79,11 @@ const EditIcon = styled(Edit)<{ onClick: any }>`
 `
 
 const ContentWrapper = styled.div`
-  /* border: 1px solid red; */
-
   display: flex;
   align-items: center;
 `
 
 const AvatarWrapper = styled.div`
-  /* border: 1px solid red; */
   min-width: 20%;
   text-align: center;
 `
@@ -99,7 +96,6 @@ const Avatar = styled.img`
 `
 
 const PostWrapper = styled.div`
-  /* border: 1px solid red; */
   display: flex;
   margin-top: 8px;
   margin-left: 20px;
@@ -120,13 +116,11 @@ const Email = styled.p``
 const Date = styled.p``
 
 const PostTitle = styled.h2`
-  /* border: 1px solid red; */
   margin-top: 10px;
   margin-bottom: 20px;
 `
 
 const Description = styled.p`
-  /* border: 1px solid red; */
   line-height: 30px;
   font-size: 20px;
   height: 100%;

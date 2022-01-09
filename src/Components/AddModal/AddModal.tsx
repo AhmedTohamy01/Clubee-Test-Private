@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import styled from 'styled-components'
+import TextField from '@material-ui/core/TextField'
 import MainTitle from '../MainTitle/MainTitle'
 import PrimaryButton from '../PrimaryButton/PrimaryButton'
 import SecondaryButton from '../SecondaryButton/SecondaryButton'
 import { PropsType } from './AddModal.interfaces'
 import { ADD_POST, GET_ALL_POSTS } from '../../GraphQLQueries/GraphQLQueries'
-import TextField from '@material-ui/core/TextField'
 import { useRandomAvatar } from '../../CustomHooks/useRandomAvatar'
 
 /*---> Components <---*/
@@ -160,19 +160,16 @@ const ModalWrapper = styled.div`
 `
 
 const DataWrapper = styled.div`
-  /* border: 1px solid red; */
   margin-top: 64px;
   display: flex;
   justify-content: space-between;
 `
 
 const UserInfoWrapper = styled.div`
-  /* border: 1px solid red; */
   width: 35%;
 `
 
 const AvatarWrapper = styled.div`
-  /* border: 1px solid red; */
   min-width: 20%;
   text-align: center;
   margin-bottom: 30px;
@@ -186,7 +183,6 @@ const Avatar = styled.img`
 `
 
 const PostInfoWrapper = styled.div`
-  /* border: 1px solid red; */
   width: 60%;
   display: flex;
   flex-direction: column;
@@ -208,7 +204,6 @@ const StyledInputMultiline = styled(TextField)`
 `
 
 const ButtonsWrapper = styled.div`
-  /* border: 1px solid yellow; */
   display: flex;
   justify-content: flex-end;
   align-items: center;
