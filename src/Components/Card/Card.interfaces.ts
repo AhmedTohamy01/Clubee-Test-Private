@@ -5,6 +5,7 @@ export interface PropsType {
   email: string
   title: string
   description: string
+  createdAt: string
   handleEditIconClick: (arg0: CardType) => void
   handleDeleteIconClick: (arg0: CardType) => void
 }

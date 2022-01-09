@@ -3,6 +3,7 @@ import { Trash } from '@styled-icons/ionicons-outline'
 import { Edit } from '@styled-icons/boxicons-solid'
 import { useRandomAvatar } from '../../CustomHooks/useRandomAvatar'
 import { PropsType } from './Card.interfaces'
+import moment from 'moment'
 
 /*---> Components <---*/
 const Card = ({
@@ -10,6 +11,7 @@ const Card = ({
   email,
   title,
   description,
+  createdAt,
   handleEditIconClick,
   handleDeleteIconClick,
 }: PropsType) => {
@@ -30,7 +32,7 @@ const Card = ({
           <Email>{email}</Email>
         </AvatarWrapper>
         <PostWrapper>
-          <Date>January 7, 2022</Date>
+          <Date>{moment(parseInt(createdAt) || '').format('LLLL')}</Date>
           <PostTitle>{title}</PostTitle>
           <Description data-cy='card-desc'>{description}</Description>
         </PostWrapper>

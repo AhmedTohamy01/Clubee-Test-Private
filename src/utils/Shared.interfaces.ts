@@ -5,4 +5,5 @@ export interface CardType {
   title: string
   address: string
   description: string
+  createdAt: string
 }

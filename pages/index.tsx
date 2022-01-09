@@ -136,6 +136,7 @@ const MainPage: NextPage = () => {
               email={item.email}
               title={item.title}
               description={item.description}
+              createdAt={item.createdAt}
               handleEditIconClick={() => handleEditIconClick(item)}
               handleDeleteIconClick={() => handleDeleteIconClick(item)}
             />

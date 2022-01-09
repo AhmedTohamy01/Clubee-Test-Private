@@ -8,6 +8,7 @@ export const GET_ALL_POSTS = gql`
       email
       title
       description
+      createdAt
     }
   }
 `
