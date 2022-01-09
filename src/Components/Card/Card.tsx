@@ -7,6 +7,8 @@ import { PropsType } from './Card.interfaces'
 /*---> Components <---*/
 const Card = ({
   name,
+  email,
+  title,
   description,
   handleEditIconClick,
   handleDeleteIconClick,
@@ -25,23 +27,12 @@ const Card = ({
             data-cy='card-avatar'
           />
           <Name data-cy='card-name'>{name}</Name>
-          <Email>ahmed-tohamy@outlook.com</Email>
+          <Email>{email}</Email>
         </AvatarWrapper>
         <PostWrapper>
           <Date>January 7, 2022</Date>
-          <PostTitle>
-            What can United States do for Ukrania in the current situation ?
-          </PostTitle>
-          <Description data-cy='card-desc'>
-            The US has said it would send reinforcements to Nato’s eastern flank
-            in response to a Russian invasion of Ukraine, as well as imposing
-            severe new economic measures, in a warning to Moscow on the eve of
-            talks between Joe Biden and Vladimir Putin. Biden will also make
-            clear to Putin on Tuesday that the US will not rule out future
-            Ukrainian membership of Nato, as the Russian leader has demanded, a
-            senior US official said. On Monday, Biden spoke to European leaders
-            in preparation for the Putin summit.
-          </Description>
+          <PostTitle>{title}</PostTitle>
+          <Description data-cy='card-desc'>{description}</Description>
         </PostWrapper>
       </ContentWrapper>
     </CardWrapper>
