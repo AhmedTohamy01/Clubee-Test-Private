@@ -1,65 +1,82 @@
 import { gql } from '@apollo/client'
 
-export const GET_ALL_USERS = gql`
+export const GET_ALL_POSTS = gql`
   query ($filter: String!, $limit: ID!) {
-    users(filter: $filter, limit: $limit) {
+    posts(filter: $filter, limit: $limit) {
       id
       name
-      address
+      email
+      title
       description
     }
   }
 `
 
-export const GET_USER = gql`
+export const GET_POST = gql`
   query ($id: ID!) {
-    user(id: $id) {
+    post(id: $id) {
       id
       name
-      address
+      email
+      title
       description
     }
   }
 `
 
-export const ADD_USER = gql`
-  mutation ($name: String!, $address: String!, $description: String!) {
-    addUser(name: $name, address: $address, description: $description) {
-      id
-      name
-      address
-      description
-    }
-  }
-`
-
-export const UPDATE_USER = gql`
+export const ADD_POST = gql`
   mutation (
-    $id: ID!
     $name: String!
-    $address: String!
+    $email: String!
+    $title: String!
     $description: String!
   ) {
-    updateUser(
-      id: $id
+    addPost(
       name: $name
-      address: $address
+      email: $email
+      title: $title
       description: $description
     ) {
       id
       name
-      address
+      email
+      title
       description
     }
   }
 `
 
-export const DELETE_USER = gql`
-  mutation ($id: ID!) {
-    deleteUser(id: $id) {
+export const UPDATE_POST = gql`
+  mutation (
+    $id: ID!
+    $name: String!
+    $email: String!
+    $title: String!
+    $description: String!
+  ) {
+    updatePost(
+      id: $id
+      name: $name
+      email: $email
+      title: $title
+      description: $description
+    ) {
       id
       name
-      address
+      email
+      title
+      description
+    }
+  }
+`
+
+export const DELETE_POST = gql`
+  mutation ($id: ID!) {
+    deletePost(id: $id) {
+      id
+      name
+      email
+      title
       description
     }
   }
