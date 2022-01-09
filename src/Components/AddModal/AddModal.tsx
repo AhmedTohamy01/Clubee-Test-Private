@@ -54,6 +54,7 @@ const AddModal = ({ setShowAddModal, limit, filterTerm }: PropsType) => {
           </AvatarWrapper>
           <FieldWrapper>
             <StyledInput
+              data-cy='add-name-input'
               variant='outlined'
               label='Author Name'
               size='medium'
@@ -69,6 +70,7 @@ const AddModal = ({ setShowAddModal, limit, filterTerm }: PropsType) => {
           </FieldWrapper>
           <FieldWrapper>
             <StyledInput
+              data-cy='add-email-input'
               variant='outlined'
               label='Author Email'
               size='medium'
@@ -86,6 +88,7 @@ const AddModal = ({ setShowAddModal, limit, filterTerm }: PropsType) => {
         <PostInfoWrapper data-cy='add-map-image'>
           <FieldWrapper>
             <StyledInput
+              data-cy='add-title-input'
               variant='outlined'
               label='Post Title'
               size='medium'
@@ -101,6 +104,7 @@ const AddModal = ({ setShowAddModal, limit, filterTerm }: PropsType) => {
           </FieldWrapper>
           <FieldWrapper>
             <StyledInputMultiline
+              data-cy='add-description-input'
               label='Post Description'
               multiline
               rows={11}
