@@ -4,7 +4,7 @@ import MainTitle from '../MainTitle/MainTitle'
 import PrimaryButton from '../PrimaryButton/PrimaryButton'
 import SecondaryButton from '../SecondaryButton/SecondaryButton'
 import { PropsType } from './DeleteModal.interfaces'
-import { GET_ALL_USERS, DELETE_USER } from '../../GraphQLQueries/GraphQLQueries'
+import { GET_ALL_POSTS, DELETE_POST } from '../../GraphQLQueries/GraphQLQueries'
 
 /*---> Components <---*/
 const DeleteModal = ({
@@ -14,9 +14,9 @@ const DeleteModal = ({
   limit,
   filterTerm,
 }: PropsType) => {
-  const [deleteUser] = useMutation(DELETE_USER, {
+  const [deleteUser] = useMutation(DELETE_POST, {
     refetchQueries: [
-      { query: GET_ALL_USERS, variables: { filter: filterTerm, limit } },
+      { query: GET_ALL_POSTS, variables: { filter: filterTerm, limit } },
     ],
   })
 
@@ -34,7 +34,7 @@ const DeleteModal = ({
   return (
     <ModalWrapper data-cy='delete-modal'>
       <MainTitle>
-        <span data-cy='delete-modal-title'>This will delete the user !</span>
+        <span data-cy='delete-modal-title'>This action will delete the post !</span>
       </MainTitle>
       <ButtonsWrapper>
         <PrimaryButton onClick={handleDelete} data-cy='delete-save-button'>
@@ -87,7 +87,7 @@ const ModalWrapper = styled.div`
 
 const ButtonsWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-top: 64px;
 `
