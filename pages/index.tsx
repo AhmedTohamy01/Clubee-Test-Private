@@ -15,7 +15,7 @@ import EditModal from '../src/Components/EditModal/EditModal'
 import DeleteModal from '../src/Components/DeleteModal/DeleteModal'
 import AddModal from '../src/Components/AddModal/AddModal'
 import { CardType } from '../src/utils/Shared.interfaces'
-import { GET_ALL_USERS } from '../src/GraphQLQueries/GraphQLQueries'
+import { GET_ALL_POSTS } from '../src/GraphQLQueries/GraphQLQueries'
 
 /*---> Components <---*/
 const MainPage: NextPage = () => {
@@ -25,9 +25,9 @@ const MainPage: NextPage = () => {
   const [activeCard, setActiveCard] = useState<CardType | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [filterTerm, setFilterTerm] = useState('')
-  const [limit, setLimit] = useState(6)
+  const [limit, setLimit] = useState(5)
 
-  const { loading, error, data } = useQuery(GET_ALL_USERS, {
+  const { loading, error, data } = useQuery(GET_ALL_POSTS, {
     variables: { filter: filterTerm, limit: limit },
   })
 
@@ -42,9 +42,7 @@ const MainPage: NextPage = () => {
   }
 
   const handleLoadMore = () => {
-    setLimit(limit + 6)
-    const updatedurlNum = limit + 6
-    setLimit(updatedurlNum)
+    setLimit(limit + 5)
   }
 
   useEffect(() => {
@@ -75,7 +73,7 @@ const MainPage: NextPage = () => {
       </SpinnerWrapper>
     )
 
-  if (data.users.length === 0)
+  if (data.posts.length === 0)
     return (
       <PageWrapper>
         <ContentWrapper>
@@ -133,17 +131,19 @@ const MainPage: NextPage = () => {
           />
         </HeaderWrapper>
         <CardsWrapper>
-          {data?.users.map((item: CardType) => (
+          {data?.posts.map((item: CardType) => (
             <Card
               key={item.id}
               name={item.name}
+              email={item.email}
+              title={item.title}
               description={item.description}
               handleEditIconClick={() => handleEditIconClick(item)}
               handleDeleteIconClick={() => handleDeleteIconClick(item)}
             />
           ))}
         </CardsWrapper>
-        {limit > data.users.length ? null : (
+        {limit > data.posts.length ? null : (
           <PrimaryButton onClick={handleLoadMore} data-cy='loadmore-button'>
             LOAD MORE
           </PrimaryButton>
