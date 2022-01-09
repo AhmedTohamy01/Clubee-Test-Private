@@ -29,11 +29,13 @@ const Card = ({
             data-cy='card-avatar'
           />
           <Name data-cy='card-name'>{name}</Name>
-          <Email>{email}</Email>
+          <Email data-cy='card-email'>{email}</Email>
         </AvatarWrapper>
         <PostWrapper>
-          <Date>{moment(parseInt(createdAt) || '').format('LLLL')}</Date>
-          <PostTitle>{title}</PostTitle>
+          <Date data-cy='card-date'>
+            {moment(parseInt(createdAt) || '').format('LLLL')}
+          </Date>
+          <PostTitle data-cy='card-title'>{title}</PostTitle>
           <Description data-cy='card-desc'>{description}</Description>
         </PostWrapper>
       </ContentWrapper>
