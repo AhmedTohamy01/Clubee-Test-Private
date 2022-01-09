@@ -3,9 +3,8 @@ import Head from 'next/head'
 import { useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import styled from 'styled-components'
-// import Loader from 'react-loader-spinner'
-// import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import { AddCircle } from '@styled-icons/ionicons-outline'
+import { CircularProgress } from '@material-ui/core'
 import MainTitle from '../src/Components/MainTitle/MainTitle'
 import SearchBox from '../src/Components/SearchBox/SearchBox'
 import Card from '../src/Components/Card/Card'
@@ -58,8 +57,7 @@ const MainPage: NextPage = () => {
   if (loading)
     return (
       <SpinnerWrapper>
-        {/* <Loader type='ThreeDots' color='#3f51b5' height={200} width={200} /> */}
-        <>Loading...</>
+        <CircularProgress variant='indeterminate' size={90} />
       </SpinnerWrapper>
     )
 
