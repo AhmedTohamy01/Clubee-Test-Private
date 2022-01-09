@@ -21,8 +21,8 @@ const ButtonWrapper = styled.div`
 
 const StyledButton = styled(Button)`
   /* background: linear-gradient(to bottom, #2bc9ff, #1399ff 100%) !important; */
-  width: 280px !important;
-  height: 90px !important;
+  width: 220px !important;
+  height: 70px !important;
   padding: 0 12px !important;
   border-radius: 10px !important;
   text-transform: initial !important;
