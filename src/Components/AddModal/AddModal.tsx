@@ -5,25 +5,29 @@ import MainTitle from '../MainTitle/MainTitle'
 import PrimaryButton from '../PrimaryButton/PrimaryButton'
 import SecondaryButton from '../SecondaryButton/SecondaryButton'
 import { PropsType } from './AddModal.interfaces'
-import { ADD_USER, GET_ALL_USERS } from '../../GraphQLQueries/GraphQLQueries'
+import { ADD_POST, GET_ALL_POSTS } from '../../GraphQLQueries/GraphQLQueries'
+import TextField from '@material-ui/core/TextField'
+import { useRandomAvatar } from '../../CustomHooks/useRandomAvatar'
 
 /*---> Components <---*/
 const AddModal = ({ setShowAddModal, limit, filterTerm }: PropsType) => {
   const [name, setName] = useState('')
-  const [address, setAddress] = useState('')
+  const [email, setEmail] = useState('')
+  const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
 
-  const [addUser] = useMutation(ADD_USER, {
+  const [addPost] = useMutation(ADD_POST, {
     refetchQueries: [
-      { query: GET_ALL_USERS, variables: { filter: filterTerm, limit } },
+      { query: GET_ALL_POSTS, variables: { filter: filterTerm, limit } },
     ],
   })
 
   const handleSave = () => {
-    addUser({
+    addPost({
       variables: {
         name,
-        address,
+        email,
+        title,
         description,
       },
     })
@@ -37,51 +41,90 @@ const AddModal = ({ setShowAddModal, limit, filterTerm }: PropsType) => {
   return (
     <ModalWrapper data-cy='add-modal'>
       <MainTitle>
-        <span data-cy='add-modal-title'>Add user</span>
+        <span data-cy='add-modal-title'>New Post</span>
       </MainTitle>
       <DataWrapper>
-        <MapWrapper data-cy='add-map-image'>
-          <MapBox data-cy='add-map-box'>MAP WITH ADDRESS</MapBox>
-        </MapWrapper>
         <UserInfoWrapper>
+          <AvatarWrapper>
+            <Avatar
+              src={useRandomAvatar() || '/avatar2.jpg'}
+              alt='avatar'
+              data-cy='card-avatar'
+            />
+          </AvatarWrapper>
           <FieldWrapper>
-            <Label data-cy='add-name-label'>Name</Label>
-            <Input
-              data-cy='add-name-input'
+            <StyledInput
+              variant='outlined'
+              label='Author Name'
+              size='medium'
+              type='text'
+              color='primary'
+              autoComplete='off'
               onChange={(event) => setName(event.target.value)}
-              maxLength={50}
+              inputProps={{
+                maxlength: '30',
+              }}
             />
           </FieldWrapper>
           <FieldWrapper>
-            <Label data-cy='add-address-label'>Address</Label>
-            <Input
-              data-cy='add-address-input'
-              onChange={(event) => setAddress(event.target.value)}
-              maxLength={50}
+            <StyledInput
+              variant='outlined'
+              label='Author Email'
+              size='medium'
+              type='email'
+              color='primary'
+              autoComplete='off'
+              onChange={(event) => setEmail(event.target.value)}
+              inputProps={{
+                maxlength: '40',
+              }}
             />
           </FieldWrapper>
-          <FieldWrapper>
-            <Label data-cy='add-desc-label'>Description</Label>
-            <Input
-              data-cy='add-desc-input'
-              onChange={(event) => setDescription(event.target.value)}
-              maxLength={50}
-            />
-          </FieldWrapper>
-          <ButtonsWrapper>
-            <PrimaryButton
-              data-cy='add-save-button'
-              onClick={handleSave}
-              disabled={name === '' || address === '' || description === ''}
-            >
-              SAVE
-            </PrimaryButton>
-            <SecondaryButton data-cy='add-cancel-button' onClick={handleCancel}>
-              CANCEL
-            </SecondaryButton>
-          </ButtonsWrapper>
         </UserInfoWrapper>
+        <PostInfoWrapper data-cy='add-map-image'>
+          <FieldWrapper>
+            <StyledInput
+              variant='outlined'
+              label='Post Title'
+              size='medium'
+              type='text'
+              color='primary'
+              autoComplete='off'
+              onChange={(event) => setTitle(event.target.value)}
+              inputProps={{
+                maxlength: '80',
+              }}
+            />
+          </FieldWrapper>
+          <FieldWrapper>
+            <StyledInputMultiline
+              label='Post Description'
+              multiline
+              rows={14}
+              variant='outlined'
+              autoComplete='off'
+              onChange={(event) => setDescription(event.target.value)}
+              inputProps={{
+                maxlength: '510',
+              }}
+            />
+          </FieldWrapper>
+        </PostInfoWrapper>
       </DataWrapper>
+      <ButtonsWrapper>
+        <PrimaryButton
+          data-cy='add-save-button'
+          onClick={handleSave}
+          disabled={
+            name === '' || email === '' || title === '' || description === ''
+          }
+        >
+          SAVE
+        </PrimaryButton>
+        <SecondaryButton data-cy='add-cancel-button' onClick={handleCancel}>
+          CANCEL
+        </SecondaryButton>
+      </ButtonsWrapper>
     </ModalWrapper>
   )
 }
@@ -113,61 +156,60 @@ const ModalWrapper = styled.div`
 `
 
 const DataWrapper = styled.div`
+  /* border: 1px solid red; */
   margin-top: 64px;
   display: flex;
   justify-content: space-between;
 `
 
-const MapWrapper = styled.div`
-  width: 518px;
-  height: 336px;
-  background: url('/map.png');
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const UserInfoWrapper = styled.div`
+  /* border: 1px solid red; */
+  width: 35%;
 `
 
-const MapBox = styled.div`
-  width: 256px;
-  height: 87px;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 8px;
-  font-size: 18px;
-  line-height: 23px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const AvatarWrapper = styled.div`
+  /* border: 1px solid red; */
+  min-width: 20%;
+  text-align: center;
+  margin-bottom: 40px;
 `
 
-const UserInfoWrapper = styled.div``
+const Avatar = styled.img`
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+`
+
+const PostInfoWrapper = styled.div`
+  /* border: 1px solid red; */
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
 
 const FieldWrapper = styled.div`
   margin-bottom: 26px;
 `
 
-const Label = styled.p`
-  font-size: 18px;
-  line-height: 23px;
+const StyledInput = styled(TextField)`
+  width: 100%;
+  background-color: white;
 `
 
-const Input = styled.input`
-  width: 621.5px;
-  height: 64px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  margin-top: 8px;
-  font-weight: normal;
-  font-size: 24px;
-  line-height: 30px;
-  padding: 16px;
+const StyledInputMultiline = styled(TextField)`
+  width: 100%;
+  height: 300px !important;
+  background-color: white;
 `
 
 const ButtonsWrapper = styled.div`
+  /* border: 1px solid yellow; */
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  margin-top: 64px;
+  margin-top: 20px;
 `
 
 export default AddModal
