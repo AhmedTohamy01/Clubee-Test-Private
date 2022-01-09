@@ -63,6 +63,7 @@ const EditModal = ({
           </AvatarWrapper>
           <FieldWrapper>
             <StyledInput
+              data-cy='edit-name-input'
               variant='outlined'
               label='Author Name'
               size='medium'
@@ -79,6 +80,7 @@ const EditModal = ({
           </FieldWrapper>
           <FieldWrapper>
             <StyledInput
+              data-cy='edit-email-input'
               variant='outlined'
               label='Author Email'
               size='medium'
@@ -97,6 +99,7 @@ const EditModal = ({
         <PostInfoWrapper data-cy='add-map-image'>
           <FieldWrapper>
             <StyledInput
+              data-cy='edit-title-input'
               variant='outlined'
               label='Post Title'
               size='medium'
@@ -113,6 +116,7 @@ const EditModal = ({
           </FieldWrapper>
           <FieldWrapper>
             <StyledInputMultiline
+              data-cy='edit-description-input'
               label='Post Description'
               multiline
               rows={11}
@@ -130,7 +134,7 @@ const EditModal = ({
       </DataWrapper>
       <ButtonsWrapper>
         <PrimaryButton
-          data-cy='add-save-button'
+          data-cy='edit-save-button'
           onClick={handleSave}
           disabled={
             name === '' || email === '' || title === '' || description === ''
@@ -138,7 +142,7 @@ const EditModal = ({
         >
           SAVE
         </PrimaryButton>
-        <SecondaryButton data-cy='add-cancel-button' onClick={handleCancel}>
+        <SecondaryButton data-cy='edit-cancel-button' onClick={handleCancel}>
           CANCEL
         </SecondaryButton>
       </ButtonsWrapper>
