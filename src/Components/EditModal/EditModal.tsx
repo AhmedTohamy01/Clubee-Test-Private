@@ -5,7 +5,9 @@ import MainTitle from '../MainTitle/MainTitle'
 import PrimaryButton from '../PrimaryButton/PrimaryButton'
 import SecondaryButton from '../SecondaryButton/SecondaryButton'
 import { PropsType } from './EditModal.interfaces'
-import { UPDATE_USER, GET_ALL_USERS } from '../../GraphQLQueries/GraphQLQueries'
+import { UPDATE_POST, GET_ALL_POSTS } from '../../GraphQLQueries/GraphQLQueries'
+import TextField from '@material-ui/core/TextField'
+import { useRandomAvatar } from '../../CustomHooks/useRandomAvatar'
 
 /*---> Components <---*/
 const EditModal = ({
@@ -16,21 +18,23 @@ const EditModal = ({
   filterTerm,
 }: PropsType) => {
   const [name, setName] = useState(activeCard!.name)
-  const [address, setAddress] = useState(activeCard!.address)
+  const [email, setEmail] = useState(activeCard!.email)
+  const [title, setTitle] = useState(activeCard!.title)
   const [description, setDescription] = useState(activeCard!.description)
 
-  const [updateUser] = useMutation(UPDATE_USER, {
+  const [updatePost] = useMutation(UPDATE_POST, {
     refetchQueries: [
-      { query: GET_ALL_USERS, variables: { filter: filterTerm, limit } },
+      { query: GET_ALL_POSTS, variables: { filter: filterTerm, limit } },
     ],
   })
 
   const handleSave = () => {
-    updateUser({
+    updatePost({
       variables: {
         id: activeCard!.id,
         name,
-        address,
+        email,
+        title,
         description,
       },
     })
@@ -46,57 +50,94 @@ const EditModal = ({
   return (
     <ModalWrapper data-cy='edit-modal'>
       <MainTitle>
-        <span data-cy='edit-modal-title'>Edit user</span>
+        <span data-cy='edit-modal-title'>Edit Post</span>
       </MainTitle>
       <DataWrapper>
-        <MapWrapper data-cy='edit-map-image'>
-          <MapBox data-cy='edit-map-box'>MAP WITH ADDRESS</MapBox>
-        </MapWrapper>
         <UserInfoWrapper>
+          <AvatarWrapper>
+            <Avatar
+              src={useRandomAvatar() || '/avatar2.jpg'}
+              alt='avatar'
+              data-cy='card-avatar'
+            />
+          </AvatarWrapper>
           <FieldWrapper>
-            <Label data-cy='edit-name-label'>Name</Label>
-            <Input
-              data-cy='edit-name-input'
+            <StyledInput
+              variant='outlined'
+              label='Author Name'
+              size='medium'
+              type='text'
+              color='primary'
+              autoComplete='off'
               onChange={(event) => setName(event.target.value)}
               defaultValue={activeCard!.name}
-              maxLength={50}
+              inputProps={{
+                maxlength: '30',
+              }}
             />
           </FieldWrapper>
           <FieldWrapper>
-            <Label data-cy='edit-address-label'>Address</Label>
-            <Input
-              data-cy='edit-address-input'
-              onChange={(event) => setAddress(event.target.value)}
-              defaultValue={activeCard!.address}
-              maxLength={50}
+            <StyledInput
+              variant='outlined'
+              label='Author Email'
+              size='medium'
+              type='email'
+              color='primary'
+              autoComplete='off'
+              onChange={(event) => setEmail(event.target.value)}
+              defaultValue={activeCard!.email}
+              inputProps={{
+                maxlength: '40',
+              }}
+            />
+          </FieldWrapper>
+        </UserInfoWrapper>
+        <PostInfoWrapper data-cy='add-map-image'>
+          <FieldWrapper>
+            <StyledInput
+              variant='outlined'
+              label='Post Title'
+              size='medium'
+              type='text'
+              color='primary'
+              autoComplete='off'
+              onChange={(event) => setTitle(event.target.value)}
+              defaultValue={activeCard!.title}
+              inputProps={{
+                maxlength: '80',
+              }}
             />
           </FieldWrapper>
           <FieldWrapper>
-            <Label data-cy='edit-desc-label'>Description</Label>
-            <Input
-              data-cy='edit-desc-input'
+            <StyledInputMultiline
+              label='Post Description'
+              multiline
+              rows={14}
+              variant='outlined'
+              autoComplete='off'
               onChange={(event) => setDescription(event.target.value)}
               defaultValue={activeCard!.description}
-              maxLength={50}
+              inputProps={{
+                maxlength: '510',
+              }}
             />
           </FieldWrapper>
-          <ButtonsWrapper>
-            <PrimaryButton
-              data-cy='edit-save-button'
-              onClick={handleSave}
-              disabled={name === '' || address === '' || description === ''}
-            >
-              SAVE
-            </PrimaryButton>
-            <SecondaryButton
-              data-cy='edit-cancel-button'
-              onClick={handleCancel}
-            >
-              CANCEL
-            </SecondaryButton>
-          </ButtonsWrapper>
-        </UserInfoWrapper>
+        </PostInfoWrapper>
       </DataWrapper>
+      <ButtonsWrapper>
+        <PrimaryButton
+          data-cy='add-save-button'
+          onClick={handleSave}
+          disabled={
+            name === '' || email === '' || title === '' || description === ''
+          }
+        >
+          SAVE
+        </PrimaryButton>
+        <SecondaryButton data-cy='add-cancel-button' onClick={handleCancel}>
+          CANCEL
+        </SecondaryButton>
+      </ButtonsWrapper>
     </ModalWrapper>
   )
 }
@@ -109,91 +150,79 @@ const ModalWrapper = styled.div`
   border-radius: 8px;
   padding: 64px;
 
-  animation: anvil 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  animation: pop-swirl 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   perspective: 1000px;
 
-  @keyframes anvil {
+  @keyframes pop-swirl {
     0% {
-      transform: scale(5) rotate(0);
-      opacity: 0;
-      box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+      transform: scale(0) rotate(360deg);
     }
-    50% {
-      transform: scale(1) rotate(-0.2deg);
-      opacity: 1;
-      box-shadow: 0 0 0 rgba(241, 241, 241, 0.5);
-    }
-    75% {
-      transform: scale(1) rotate(0.2deg);
-      opacity: 1;
-      box-shadow: 0 0 250px rgba(241, 241, 241, 0.5);
+    60% {
+      transform: scale(0.8) rotate(-10deg);
     }
     100% {
-      transform: scale(1) rotate(0);
-      opacity: 1;
-      box-shadow: 0 0 500px rgba(241, 241, 241, 0);
+      transform: scale(1) rotate(0deg);
     }
   }
 `
 
 const DataWrapper = styled.div`
+  /* border: 1px solid red; */
   margin-top: 64px;
   display: flex;
   justify-content: space-between;
 `
 
-const MapWrapper = styled.div`
-  width: 518px;
-  height: 336px;
-  background: url('/map.png');
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const UserInfoWrapper = styled.div`
+  /* border: 1px solid red; */
+  width: 35%;
 `
 
-const MapBox = styled.div`
-  width: 256px;
-  height: 87px;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 8px;
-  font-size: 18px;
-  line-height: 23px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const AvatarWrapper = styled.div`
+  /* border: 1px solid red; */
+  min-width: 20%;
+  text-align: center;
+  margin-bottom: 40px;
 `
 
-const UserInfoWrapper = styled.div``
+const Avatar = styled.img`
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+`
+
+const PostInfoWrapper = styled.div`
+  /* border: 1px solid red; */
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
 
 const FieldWrapper = styled.div`
   margin-bottom: 26px;
 `
 
-const Label = styled.p`
-  font-size: 18px;
-  line-height: 23px;
+const StyledInput = styled(TextField)`
+  width: 100%;
+  background-color: white;
 `
 
-const Input = styled.input`
-  width: 621.5px;
-  height: 64px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  margin-top: 8px;
-  font-weight: normal;
-  font-size: 24px;
-  line-height: 30px;
-  padding: 16px;
+const StyledInputMultiline = styled(TextField)`
+  width: 100%;
+  height: 300px !important;
+  background-color: white;
 `
 
 const ButtonsWrapper = styled.div`
+  /* border: 1px solid yellow; */
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  margin-top: 64px;
+  margin-top: 20px;
 `
 
 export default EditModal
