@@ -37,7 +37,10 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang='en'>
-        <Head></Head>
+        <Head>
+          <meta name='News List App' content='News from different sources' />
+          <link rel='icon' href='/favicon.ico' />
+        </Head>
         <body>
           <Main />
           <NextScript />
