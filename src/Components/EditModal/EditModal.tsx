@@ -72,6 +72,7 @@ const EditModal = ({
               onChange={(event) => setName(event.target.value)}
               defaultValue={activeCard!.name}
               inputProps={{
+                style: { fontSize: 18 },
                 maxlength: '30',
               }}
             />
@@ -87,6 +88,7 @@ const EditModal = ({
               onChange={(event) => setEmail(event.target.value)}
               defaultValue={activeCard!.email}
               inputProps={{
+                style: { fontSize: 18 },
                 maxlength: '40',
               }}
             />
@@ -104,6 +106,7 @@ const EditModal = ({
               onChange={(event) => setTitle(event.target.value)}
               defaultValue={activeCard!.title}
               inputProps={{
+                style: { fontSize: 18 },
                 maxlength: '80',
               }}
             />
@@ -112,12 +115,13 @@ const EditModal = ({
             <StyledInputMultiline
               label='Post Description'
               multiline
-              rows={14}
+              rows={11}
               variant='outlined'
               autoComplete='off'
               onChange={(event) => setDescription(event.target.value)}
               defaultValue={activeCard!.description}
               inputProps={{
+                style: { fontSize: 18, lineHeight: 1.3 },
                 maxlength: '510',
               }}
             />
@@ -184,7 +188,7 @@ const AvatarWrapper = styled.div`
   /* border: 1px solid red; */
   min-width: 20%;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 `
 
 const Avatar = styled.img`
@@ -213,7 +217,6 @@ const StyledInput = styled(TextField)`
 
 const StyledInputMultiline = styled(TextField)`
   width: 100%;
-  height: 300px !important;
   background-color: white;
 `
 
