@@ -77,9 +77,9 @@ const MainPage: NextPage = () => {
           <link rel='icon' href='/favicon.ico' />
         </Head>
         <SpinnerWrapper>
-          <SorryImage src='/sorry.png' alt='shy girl' />I don't know how to say
+          <SorryImage src='/sorry.png' alt='shy girl' />I do not know how to say
           this to you ... <br />
-          But, we couldn't contact the server to get data, please try again
+          But, we could not contact the server to get data, please try again
           later !
         </SpinnerWrapper>
       </>
