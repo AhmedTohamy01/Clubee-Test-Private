@@ -33,7 +33,6 @@ The project is a News List where you can explore available news cards and filter
 
 - [Technology Used](#technology-used)
 - [How To Use](#how-to-use)
-- [Author](#author)
 
 # Project Walk-Through
 
@@ -265,10 +264,3 @@ and cypress will open the test in a new browser window.
 
 ```
 
-# Author
-
-👤 **Ahmed Tohamy**
-
-- Github: https://github.com/AhmedTohamy01
-- Linkedin: https://www.linkedin.com/in/ATohamy
-- Email: Ahmed-Tohamy@outlook.com
